@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { ZScoreOpportunity, HistoricalFundingRate } from '@/lib/types';
-import { formatPercentage, getZScoreColor } from '@/lib/utils';
+import { formatPercentage, getZScoreColor, cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 import { TrendingUp, AlertTriangle, Brain, RefreshCw, Lock } from 'lucide-react';
 
@@ -12,7 +12,7 @@ interface ZScoreAnalysisProps {
   opportunities: ZScoreOpportunity[];
   loading: boolean;
   onRefresh: () => void;
-  onHistoricalData: (symbol: string, exchange: string) => HistoricalFundingRate[];
+  onHistoricalData: (symbol: string, exchange: string) => Promise<HistoricalFundingRate[]>;
   userTier?: 'free' | 'pro' | 'premium';
 }
 
@@ -27,14 +27,14 @@ export default function ZScoreAnalysis({
   const [historicalData, setHistoricalData] = useState<any[]>([]);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
-  const handleSelectOpportunity = (opportunity: ZScoreOpportunity) => {
+  const handleSelectOpportunity = async (opportunity: ZScoreOpportunity) => {
     if (userTier === 'free') {
       setShowPremiumModal(true);
       return;
     }
 
     setSelectedOpportunity(opportunity);
-    const historical = onHistoricalData(opportunity.symbol, opportunity.exchange);
+    const historical = await onHistoricalData(opportunity.symbol, opportunity.exchange);
 
     // Transform data for chart
     const chartData = historical.map((item, index) => ({
@@ -223,12 +223,12 @@ export default function ZScoreAnalysis({
                   </div>
                 </div>
 
-                {opportunity.apr && (
+                {opportunity.currentRate && (
                   <div className="mt-2 pt-2 border-t border-gray-100">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Est. APR</span>
+                      <span className="text-sm text-gray-600">Current Rate</span>
                       <span className="font-bold text-primary-600">
-                        {formatPercentage(opportunity.apr)}
+                        {formatPercentage(opportunity.currentRate * 365)}
                       </span>
                     </div>
                   </div>

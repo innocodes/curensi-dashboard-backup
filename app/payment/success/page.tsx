@@ -13,7 +13,7 @@ export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
   const [isVerifying, setIsVerifying] = useState(true);
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'failed' | 'processing'>('processing');
-  const { verifyPayment } = usePaystack();
+  const { verifyPayment: verifyPaystackPayment } = usePaystack();
 
   useEffect(() => {
     const reference = searchParams.get('reference');
@@ -27,7 +27,7 @@ export default function PaymentSuccessPage() {
     const verifyPayment = async () => {
       try {
         // Use Firebase Functions to verify payment
-        const result = await verifyPayment(reference);
+        const result = await verifyPaystackPayment(reference);
 
         if (result.success) {
           setPaymentStatus('success');
@@ -45,7 +45,7 @@ export default function PaymentSuccessPage() {
     };
 
     verifyPayment();
-  }, [searchParams, verifyPayment]);
+  }, [searchParams, verifyPaystackPayment]);
 
   if (loading || isVerifying) {
     return (

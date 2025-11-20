@@ -36,6 +36,9 @@ export default function FundingRateTable({
     const aValue = a[sortField];
     const bValue = b[sortField];
 
+    if (aValue == null) return 1;
+    if (bValue == null) return -1;
+
     if (sortDirection === 'asc') {
       return aValue > bValue ? 1 : -1;
     }

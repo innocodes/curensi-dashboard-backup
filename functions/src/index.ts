@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as ccxt from 'ccxt';
-import * as cors from 'cors';
+import cors from 'cors';
 
 // Initialize Firebase Admin
 admin.initializeApp();

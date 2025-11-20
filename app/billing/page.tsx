@@ -7,10 +7,11 @@ import PricingPlans from '@/components/billing/PricingPlans';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { paystackService } from '@/lib/paystack';
 import { useSearchParams } from 'next/navigation';
+import { BillingHistory } from '@/lib/types';
 
 export default function BillingPage() {
   const { user, userProfile, refreshUserProfile } = useAuth();
-  const [billingHistory, setBillingHistory] = useState([]);
+  const [billingHistory, setBillingHistory] = useState<BillingHistory[]>([]);
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const reference = searchParams.get('reference');
@@ -59,8 +60,9 @@ export default function BillingPage() {
       const getBillingHistory = httpsCallable(functions, 'getBillingHistory');
       const result = await getBillingHistory();
 
-      if (result.data.success) {
-        setBillingHistory(result.data.history);
+      const data = result.data as { success: boolean; history: BillingHistory[] };
+      if (data.success) {
+        setBillingHistory(data.history);
       }
     } catch (error) {
       console.error('Error fetching billing history:', error);
@@ -80,7 +82,8 @@ export default function BillingPage() {
         subscriptionCode: userProfile.paystackSubscriptionCode
       });
 
-      if (result.data.success) {
+      const cancelResult = result.data as { success: boolean };
+      if (cancelResult.success) {
         await refreshUserProfile();
         alert('Subscription cancelled successfully.');
       } else {

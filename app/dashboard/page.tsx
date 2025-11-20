@@ -55,9 +55,10 @@ export default function Dashboard() {
       const result = await getFundingRates(payload);
       console.log("📥 Raw Firebase result:", result);
 
-      if (result.data && (result.data.success || Array.isArray(result.data))) {
+      const data = result.data as { success: boolean; data: any[] } | any[];
+      if (data && (Array.isArray(data) || (typeof data === 'object' && data.success))) {
         console.log("✅ Success! Processing data...");
-        const dataArray = result.data.success ? result.data.data : result.data;
+        const dataArray = Array.isArray(data) ? data : data.data;
         const rates = dataArray.map((rate: any) => ({
           ...rate,
           timestamp: rate.timestamp?._seconds
@@ -95,8 +96,9 @@ export default function Dashboard() {
         threshold: 2,
       });
 
-      if (result.data.success) {
-        setZScoreOpportunities(result.data.data);
+      const zScoreResult = result.data as { success: boolean; data: any[] };
+      if (zScoreResult.success) {
+        setZScoreOpportunities(zScoreResult.data);
       }
     } catch (error) {
       console.error("Error fetching Z-score opportunities:", error);
@@ -117,8 +119,9 @@ export default function Dashboard() {
         days: userProfile?.subscriptionTier === "premium" ? 30 : 7,
       });
 
-      if (result.data.success) {
-        const formattedData = result.data.data.map((item: any) => ({
+      const historicalResult = result.data as { success: boolean; data: any[] };
+      if (historicalResult.success) {
+        const formattedData = historicalResult.data.map((item: any) => ({
           ...item,
           timestamp: item.timestamp?.toDate() || new Date(),
         }));

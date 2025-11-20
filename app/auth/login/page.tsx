@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,15 +11,14 @@ import { ArrowLeft } from 'lucide-react';
 export default function LoginPage() {
   const router = useRouter();
   const { user, loading } = useAuth();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Redirect if already logged in
   if (!loading && user) {
     router.push('/dashboard');
   }
 
-  const handleLoginSuccess = () => {
-    router.push('/dashboard');
+  const handleToggleMode = () => {
+    router.push('/auth/signup');
   };
 
   if (loading) {
@@ -53,11 +52,7 @@ export default function LoginPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-gray-200">
-          <LoginForm
-            onSuccess={handleLoginSuccess}
-            isSubmitting={isSubmitting}
-            setIsSubmitting={setIsSubmitting}
-          />
+          <LoginForm onToggleMode={handleToggleMode} />
 
           <div className="mt-6">
             <div className="relative">

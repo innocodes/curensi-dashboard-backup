@@ -28,6 +28,7 @@ export interface UserProfile {
   subscriptionTier: 'free' | 'pro' | 'premium';
   subscriptionStatus: 'active' | 'cancelled' | 'expired' | 'trial';
   subscriptionEndsAt?: Date;
+  paystackSubscriptionCode?: string;
   notifications: {
     email: boolean;
     push: boolean;
@@ -90,4 +91,14 @@ export interface ExchangeConfig {
   tradingFee: number;
   withdrawalFee?: Record<string, number>;
   hasFundingRates: boolean;
+}
+
+export interface BillingHistory {
+  id: string;
+  amount: number;
+  currency: string;
+  status: 'success' | 'failed' | 'pending';
+  paymentDate: Date;
+  plan: string;
+  description: string;
 }

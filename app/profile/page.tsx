@@ -50,7 +50,7 @@ export default function ProfilePage() {
   const availableExchanges = ['OKX', 'KuCoin Futures', 'Binance', 'Bybit', 'OKX', 'Gate.io'];
 
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && user) {
       setFormData({
         displayName: user.displayName || '',
         email: user.email || '',
@@ -103,8 +103,9 @@ export default function ProfilePage() {
 
     setLoading(true);
     try {
-      const auth = getAuth();
-      await updateEmail(auth, formData.email);
+      if (user) {
+        await updateEmail(user, formData.email);
+      }
       showMessage('success', 'Email updated successfully!');
     } catch (error) {
       console.error('Error updating email:', error);
