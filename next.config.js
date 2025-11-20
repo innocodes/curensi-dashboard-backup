@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     domains: ['firebasestorage.googleapis.com', 'ui-avatars.com'],
   },
   env: {
@@ -12,14 +15,6 @@ const nextConfig = {
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_PUBLIC_KEY,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://curensi.com',
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/:path*',
-        destination: '/:path*',
-      },
-    ];
   },
 }
 
