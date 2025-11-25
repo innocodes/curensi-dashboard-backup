@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import DocsHeader from '@/components/docs/DocsHeader';
 import {
   BarChart3,
   TrendingUp,
@@ -167,21 +169,17 @@ const limitations = [
 
 export default function DashboardOverviewPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-6 h-6" />
-            </div>
-            <h1 className="text-3xl font-bold">Dashboard Overview</h1>
-          </div>
-          <p className="text-xl text-blue-100">
-            Learn to navigate the Curensi dashboard and make the most of real-time funding rate data.
-          </p>
-        </div>
-      </div>
+    <>
+      <DocsHeader
+        title="Dashboard Overview: Your Trading Command Center"
+        subtitle="Master the Curensi dashboard to identify profitable funding rate opportunities, track market conditions, and execute successful arbitrage strategies."
+        icon={BarChart3}
+        gradient="bg-gradient-to-r from-blue-600 to-purple-600"
+        showCTA={true}
+        ctaText="Access Dashboard"
+        ctaLink="/dashboard"
+        ctaVariant="secondary"
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Dashboard Sections */}
@@ -334,6 +332,6 @@ export default function DashboardOverviewPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

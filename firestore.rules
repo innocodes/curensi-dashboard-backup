@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isFreeUser() {
+      return request.auth != null &&
+             request.auth.token.subscriptionTier == 'free';
+    }
+
+    function isPaidUser() {
+      return request.auth != null &&
+             request.auth.token.subscriptionTier in ['pro', 'premium'];
+    }
+
+    function getUserTier() {
+      return request.auth != null ?
+             request.auth.token.subscriptionTier : 'free';
+    }
+
+    // Real-time rates collection - PAID USERS ONLY
+    match /rates_realtime/{docId} {
+      allow read: if isPaidUser();
+      allow write: if false; // Only writable by functions
+    }
+
+    // Delayed rates collection - ALL USERS (1-hour delayed data)
+    match /rates_delayed/{docId} {
+      allow read: if true; // Public access for delayed data
+      allow write: if false; // Only writable by functions
+    }
+
+    // Legacy latest_rates collection - DEPRECATED
+    match /latest_rates/{docId} {
+      allow read: if false; // Deprecated, use tier-specific collections
+      allow write: if false;
+    }
+
+    // Historical rates - PAID USERS ONLY
+    match /historical_funding_rates/{docId} {
+      allow read: if isPaidUser();
+      allow write: if false; // Only writable by functions
+    }
+
+    // Users can read and write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Notifications - USER-SCOPED
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null &&
+        resource.data.userId == request.auth.uid;
+      allow write: if false; // Only functions
+    }
+
+    // Transactions - PRIVATE
+    match /transactions/{transactionId} {
+      allow read, write: if request.auth != null &&
+        resource.data.userId == request.auth.uid;
+    }
+
+    // Users can read public documentation
+    match /docs/{docId} {
+      allow read: if true;
+    }
+
+    // Legacy funding_rates collection - DEPRECATED
+    match /funding_rates/{docId} {
+      allow read: if false; // Deprecated, use tier-specific collections
+    }
+
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

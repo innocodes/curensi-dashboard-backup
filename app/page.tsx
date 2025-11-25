@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
+import Navbar from "@/components/layout/Navbar";
 import LoginForm from "@/components/auth/LoginForm";
 import SignupForm from "@/components/auth/SignupForm";
 import Footer from "@/components/layout/Footer";
@@ -61,30 +62,29 @@ export default function Home() {
     },
   ];
 
-  const platforms = [
-    "OKX",
-    "KuCoin Futures",
-  ];
+  const platforms = ["OKX", "KuCoin Futures"];
 
   const howItWorks = [
     {
       step: "1",
       title: "Analyze Opportunities",
-      description: "Review real-time funding rate data and Z-score analysis from supported exchanges",
+      description:
+        "Review real-time funding rate data and Z-score analysis from supported exchanges",
     },
     {
       step: "2",
       title: "Execute on Exchange",
-      description: "Trade directly on OKX or KuCoin Futures platforms using your own accounts",
+      description:
+        "Trade directly on OKX or KuCoin Futures platforms using your own accounts",
     },
     {
       step: "3",
       title: "Monitor Returns",
-      description: "Track your arbitrage positions and funding rate payments in real-time",
+      description:
+        "Track your arbitrage positions and funding rate payments in real-time",
     },
   ];
 
-  
   if (user) {
     // Redirect to dashboard if user is logged in
     if (typeof window !== "undefined") {
@@ -95,41 +95,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-primary-500 rounded-lg">
-                <TrendingUp className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">Curensi</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setIsLogin(true)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  isLogin
-                    ? "bg-primary-100 text-primary-700"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                Sign In
-              </button>
-              <button
-                onClick={() => setIsLogin(false)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  !isLogin
-                    ? "bg-primary-100 text-primary-700"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                Sign Up
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
@@ -151,29 +117,37 @@ export default function Home() {
                     Important: Information Platform, Not a Trading Platform
                   </p>
                   <p className="text-blue-800 text-sm">
-                    Curensi provides funding rate data and analysis. You execute trades directly on exchanges using your own accounts.
+                    Curensi provides funding rate data and analysis. You execute
+                    trades directly on exchanges using your own accounts.
                   </p>
                 </div>
               </div>
             </div>
 
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Access real-time funding rate data, advanced Z-score analysis, and arbitrage opportunity detection.
-              Make informed decisions with data-driven insights from OKX and KuCoin Futures.
+              Access real-time funding rate data, advanced Z-score analysis, and
+              arbitrage opportunity detection. Make informed decisions with
+              data-driven insights from OKX and KuCoin Futures.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
               <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-gray-700">Live Rate Data</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Live Rate Data
+                </span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm">
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-sm font-medium text-gray-700">Statistical Analysis</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Statistical Analysis
+                </span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-sm font-medium text-gray-700">Real-time Scoring</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Real-time Scoring
+                </span>
               </div>
             </div>
           </div>
@@ -188,7 +162,8 @@ export default function Home() {
               Why Choose Curensi?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Powerful data analysis tools designed for intelligent funding rate arbitrage decisions
+              Powerful data analysis tools designed for intelligent funding rate
+              arbitrage decisions
             </p>
           </div>
 
@@ -205,9 +180,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     {benefit.name}
                   </h3>
-                  <p className="text-gray-600">
-                    {benefit.description}
-                  </p>
+                  <p className="text-gray-600">{benefit.description}</p>
                 </div>
               );
             })}
@@ -223,7 +196,8 @@ export default function Home() {
               How Curensi Works
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From data analysis to informed trading decisions in three simple steps
+              From data analysis to informed trading decisions in three simple
+              steps
             </p>
           </div>
 
@@ -237,9 +211,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600">
-                    {step.description}
-                  </p>
+                  <p className="text-gray-600">{step.description}</p>
                 </div>
                 {index < howItWorks.length - 1 && (
                   <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
@@ -260,15 +232,62 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Auth Form */}
             <div>
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 border border-blue-200">
-                {/* <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                  Get Started Today
-                </h2> */}
-                {isLogin ? (
-                  <LoginForm onToggleMode={() => setIsLogin(false)} />
-                ) : (
-                  <SignupForm onToggleMode={() => setIsLogin(true)} />
-                )}
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                {/* Tab Headers */}
+                <div className="flex border-b border-gray-200">
+                  <button
+                    onClick={() => setIsLogin(true)}
+                    className={`flex-1 px-6 py-4 text-center font-medium text-sm transition-colors ${
+                      isLogin
+                        ? "text-primary-600 border-b-2 border-primary-600 bg-primary-50"
+                        : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => setIsLogin(false)}
+                    className={`flex-1 px-6 py-4 text-center font-medium text-sm transition-colors ${
+                      !isLogin
+                        ? "text-primary-600 border-b-2 border-primary-600 bg-primary-50"
+                        : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+
+                {/* Tab Content */}
+                <div className="p-8 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
+                  <div className="transition-all duration-300 ease-in-out">
+                    {isLogin ? (
+                      <div className="space-y-6">
+                        <div className="text-center mb-6">
+                          {/* <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                            Welcome Back
+                          </h3>
+                          <p className="text-gray-600">
+                            Sign in to access your Curensi dashboard
+                          </p> */}
+                        </div>
+                        <LoginForm onToggleMode={() => setIsLogin(false)} />
+                      </div>
+                    ) : (
+                      <div className="space-y-6">
+                        <div className="text-center mb-6">
+                          {/* <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                            Get Started
+                          </h3>
+                          <p className="text-gray-600">
+                            Create your account to start exploring arbitrage
+                            opportunities
+                          </p> */}
+                        </div>
+                        <SignupForm onToggleMode={() => setIsLogin(true)} />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -287,7 +306,9 @@ export default function Home() {
                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-gray-900">{platform}</h4>
-                        <p className="text-sm text-gray-600">Real-time funding rate data</p>
+                        <p className="text-sm text-gray-600">
+                          Real-time funding rate data
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -306,20 +327,27 @@ export default function Home() {
                   </h3>
                 </div>
                 <p className="text-blue-100 mb-8">
-                  Curensi empowers you with real-time data and advanced analysis to identify profitable funding rate arbitrage opportunities.
+                  Curensi empowers you with real-time data and advanced analysis
+                  to identify profitable funding rate arbitrage opportunities.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400" />
-                    <span className="font-medium">Z-score analysis for statistical significance</span>
+                    <span className="font-medium">
+                      Z-score analysis for statistical significance
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400" />
-                    <span className="font-medium">Real-time opportunity scoring and ranking</span>
+                    <span className="font-medium">
+                      Real-time opportunity scoring and ranking
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400" />
-                    <span className="font-medium">Historical rate tracking for pattern recognition</span>
+                    <span className="font-medium">
+                      Historical rate tracking for pattern recognition
+                    </span>
                   </div>
                 </div>
               </div>
@@ -336,8 +364,9 @@ export default function Home() {
               Plans for Every Trader Level
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Whether you're just exploring funding rate arbitrage or you're a seasoned trader,
-              we have the right data and tools to support your strategy.
+              Whether you're just exploring funding rate arbitrage or you're a
+              seasoned trader, we have the right data and tools to support your
+              strategy.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -347,7 +376,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Beginner Friendly</h3>
                 <p className="text-blue-100">
-                  Start with free access to essential funding rate data and basic analysis tools
+                  Start with free access to essential funding rate data and
+                  basic analysis tools
                 </p>
               </div>
 
@@ -357,7 +387,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Advanced Analytics</h3>
                 <p className="text-blue-100">
-                  Professional traders get Z-score analysis and real-time opportunity detection
+                  Professional traders get Z-score analysis and real-time
+                  opportunity detection
                 </p>
               </div>
 
@@ -367,7 +398,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Premium Features</h3>
                 <p className="text-blue-100">
-                  Maximum data access, extended historical tracking, and early feature access
+                  Maximum data access, extended historical tracking, and early
+                  feature access
                 </p>
               </div>
             </div>

@@ -1,479 +1,362 @@
-'use client';
+"use client";
 
-import {
-  TrendingUp,
-  TrendingDown,
-  ArrowRight,
-  Calculator,
-  Shield,
-  Clock,
-  AlertTriangle,
-  CheckCircle,
-  BarChart3,
-  DollarSign,
-  BookOpen,
-  ArrowUpRight,
-  ArrowDownRight,
-  Info,
-} from 'lucide-react';
+import Link from "next/link";
+import DocsHeader from "@/components/docs/DocsHeader";
+import { ArrowRight, TrendingUp, Calculator, AlertTriangle, Play, DollarSign, TrendingDown, CheckCircle } from "lucide-react";
 
-const strategySteps = [
+const tradeSteps = [
   {
-    step: "1",
-    title: "Find Funding Opportunity",
-    description: "Use Curensi to identify high funding rates on supported exchanges",
-    icon: BarChart3,
-    details: [
-      "Look for rates above 0.05% for meaningful returns",
-      "Compare rates across OKX and KuCoin Futures",
-      "Check the time until next funding payment",
-      "Verify symbol liquidity and trading volume"
-    ]
-  },
-  {
-    step: "2",
-    title: "Calculate Position Size",
-    description: "Determine the appropriate trade size based on your capital and risk tolerance",
+    title: "Calculate Your Entry Costs",
+    description: "Use our Net Profit Calculator to factor in fees and basis spread",
     icon: Calculator,
-    details: [
-      "Never risk more than 1-2% of total capital per trade",
-      "Consider trading fees in your calculations",
-      "Account for potential slippage on entry/exit",
-      "Maintain adequate margin for futures positions"
-    ]
   },
   {
-    step: "3",
-    title: "Execute Market-Neutral Position",
-    description: "Simultaneously open spot and futures positions in opposite directions",
+    title: "Set Your Position Size",
+    description: "Use 1x leverage and ensure equal spot and futures positions",
     icon: TrendingUp,
-    details: [
-      "For positive rates: Buy spot, Short futures",
-      "For negative rates: Short spot, Long futures",
-      "Ensure position values are approximately equal",
-      "Enter both positions quickly to minimize price risk"
-    ]
   },
   {
-    step: "4",
-    title: "Monitor and Collect",
-    description: "Hold positions through the funding period and collect your payment",
+    title: "Execute the Trade",
+    description: "Buy spot and short futures simultaneously within seconds",
+    icon: Play,
+  },
+  {
+    title: "Monitor & Maintain",
+    description: "Watch funding rates and liquidation levels, rebalance if needed",
+    icon: AlertTriangle,
+  },
+];
+
+const tradeExample = [
+  {
+    stage: "Entry",
+    action: "Buy $5,000 Spot + Short $5,000 Perp",
+    cost: "-0.12% Fees",
+    impact: "-$12.00 (Loss)",
+  },
+  {
+    stage: "Spread",
+    action: "Perp price was $0.50 lower than Spot",
+    cost: "-0.05% Basis",
+    impact: "-$5.00 (Loss)",
+  },
+  {
+    stage: "Day 1",
+    action: "Collect Funding (3x payments)",
+    cost: "+0.12% Yield",
+    impact: "+$12.00",
+  },
+  {
+    stage: "Day 2",
+    action: "Collect Funding (3x payments)",
+    cost: "+0.12% Yield",
+    impact: "+$12.00",
+  },
+  {
+    stage: "Exit",
+    action: "Close both positions",
+    cost: "-0.12% Fees",
+    impact: "-$12.00 (Loss)",
+  },
+];
+
+const optimizationTips = [
+  {
+    title: "The Compounding Loop",
+    description: "Funding fees are paid in USDT directly to your Futures wallet. Reinvest weekly to maximize compound returns.",
+    icon: Calculator,
+    color: "purple",
+  },
+  {
+    title: "The 'Spread Hunter' Entry",
+    description: "Use limit orders instead of market orders to save on fees. Makers pay 0.02% vs Takers pay 0.05%.",
     icon: DollarSign,
-    details: [
-      "Monitor both positions for any significant divergence",
-      "Be ready to close if funding rates turn against you",
-      "Collect funding payment at the next funding time",
-      "Close positions after receiving funding if desired"
-    ]
-  }
-];
-
-const positiveRateExample = [
-  {
-    scenario: "Initial Setup",
-    spotPosition: "$10,000 BTC purchased",
-    futuresPosition: "$10,000 BTC futures shorted",
-    totalExposure: "$20,000 total position (fully hedged)",
-    fundingExpected: "+$30 funding payment expected"
+    color: "green",
   },
   {
-    scenario: "BTC Price +10%",
-    spotPnL: "+$1,000 profit",
-    futuresPnL: "-$1,000 loss",
-    netTradingPnL: "$0 (market neutral)",
-    fundingReceived: "+$30 collected",
-    netResult: "+$30 profit"
+    title: "Fee Tier Hacking",
+    description: "Hold BNB for 25% fee discounts. Upgrade to VIP tiers for better rates on high-volume trading.",
+    icon: TrendingUp,
+    color: "blue",
   },
-  {
-    scenario: "BTC Price -10%",
-    spotPnL: "-$1,000 loss",
-    futuresPnL: "+$1,000 profit",
-    netTradingPnL: "$0 (market neutral)",
-    fundingReceived: "+$30 collected",
-    netResult: "+$30 profit"
-  }
-];
-
-const negativeRateExample = [
-  {
-    scenario: "Initial Setup",
-    spotPosition: "$10,000 BTC shorted",
-    futuresPosition: "$10,000 BTC futures bought",
-    totalExposure: "$20,000 total position (fully hedged)",
-    fundingExpected: "+$30 funding payment expected"
-  },
-  {
-    scenario: "BTC Price +10%",
-    spotPnL: "-$1,000 loss",
-    futuresPnL: "+$1,000 profit",
-    netTradingPnL: "$0 (market neutral)",
-    fundingReceived: "+$30 collected",
-    netResult: "+$30 profit"
-  },
-  {
-    scenario: "BTC Price -10%",
-    spotPnL: "+$1,000 profit",
-    futuresPnL: "-$1,000 loss",
-    netTradingPnL: "$0 (market neutral)",
-    fundingReceived: "+$30 collected",
-    netResult: "+$30 profit"
-  }
-];
-
-const bestPractices = [
-  {
-    icon: Shield,
-    title: "Start Small",
-    description: "Begin with tiny positions ($100-500) to learn mechanics without significant risk",
-    color: "text-green-600",
-    bgColor: "bg-green-100"
-  },
-  {
-    icon: Clock,
-    title: "Timing Matters",
-    description: "Enter positions before funding payments, but avoid holding through major market events",
-    color: "text-blue-600",
-    bgColor: "bg-blue-100"
-  },
-  {
-    icon: BarChart3,
-    title: "Monitor Divergence",
-    description: "Watch for significant price differences between spot and futures that could create losses",
-    color: "text-purple-600",
-    bgColor: "bg-purple-100"
-  },
-  {
-    icon: DollarSign,
-    title: "Factor in Fees",
-    description: "Include trading fees, withdrawal costs, and potential slippage in your calculations",
-    color: "text-orange-600",
-    bgColor: "bg-orange-100"
-  }
-];
-
-const commonMistakes = [
-  {
-    title: "Position Size Mismatch",
-    description: "Not maintaining equal value between spot and futures positions creates directional exposure",
-    example: "Buy $10k spot but only short $8k futures - you have $2k bullish exposure",
-    solution: "Always double-check that position values match within 1-2%"
-  },
-  {
-    title: "Ignoring Trading Fees",
-    description: "Forgetting to account for exchange fees can turn profitable trades into losses",
-    example: "$10k position with 0.1% fee each way = $20 in fees vs $30 funding = only $10 profit",
-    solution: "Calculate all costs before entering a trade"
-  },
-  {
-    title: "Poor Timing",
-    description: "Holding positions through major price events can cause temporary losses before funding",
-    example: "Entering during high volatility can lead to liquidation before funding payment",
-    solution: "Monitor market conditions and have clear exit criteria"
-  },
-  {
-    title: "Over-leveraging",
-    description: "Using too much leverage increases liquidation risk even with market-neutral positions",
-    example: "10x leverage means a 10% move could liquidate your futures position",
-    solution: "Use low leverage (2-3x max) or no leverage"
-  }
-];
-
-const riskManagement = [
-  {
-    level: "Conservative",
-    maxPositionSize: "1% of capital",
-    maxLeverage: "No leverage or 2x max",
-    targetRate: ">0.05%",
-    maxHoldTime: "1 funding period (8 hours)",
-    description: "For beginners learning the mechanics"
-  },
-  {
-    level: "Moderate",
-    maxPositionSize: "2-3% of capital",
-    maxLeverage: "3-5x leverage",
-    targetRate: ">0.03%",
-    maxHoldTime: "2-3 funding periods",
-    description: "For experienced traders with good risk management"
-  },
-  {
-    level: "Aggressive",
-    maxPositionSize: "5%+ of capital",
-    maxLeverage: "5-10x leverage",
-    targetRate: ">0.01%",
-    maxHoldTime: "Multiple periods",
-    description: "Only for professional traders with significant experience"
-  }
 ];
 
 export default function BasicStrategyPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6" />
-            </div>
-            <h1 className="text-3xl font-bold">Basic Arbitrage Strategy</h1>
-          </div>
-          <p className="text-xl text-blue-100">
-            Step-by-step guide to executing your first funding rate arbitrage trade safely and profitably.
-          </p>
-        </div>
-      </div>
+    <>
+      <DocsHeader
+        title="Execution Guide: Your First Cash & Carry Trade"
+        subtitle="Step-by-step guide to executing profitable funding rate arbitrage trades with proper risk management"
+        icon={TrendingUp}
+        gradient="bg-gradient-to-r from-green-600 to-teal-600"
+        showCTA={true}
+        ctaText="Upgrade to Pro Plan"
+        ctaLink="/pricing"
+        ctaVariant="primary"
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Strategy Steps */}
+        {/* Overview */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">The Four-Step Arbitrage Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {strategySteps.map((step, index) => {
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+              The Cash & Carry Strategy
+            </h2>
+            <p className="text-gray-700 leading-relaxed text-center">
+              Execute a market-neutral arbitrage trade to capture funding fees while minimizing price exposure.
+              The key is <span className="font-bold text-blue-600">hedging your price risk</span> while collecting systematic funding payments.
+            </p>
+          </div>
+        </div>
+
+        {/* Trade Steps */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Step-by-Step Execution</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {tradeSteps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="font-bold text-blue-600">{step.step}</span>
+                <div key={index} className="relative">
+                  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 h-full">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-green-600" />
+                      </div>
+                      <span className="bg-green-100 text-green-800 text-sm font-medium px-2 py-1 rounded-full">
+                        Step {index + 1}
+                      </span>
                     </div>
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-blue-600" />
-                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
+                    <p className="text-sm text-gray-600">{step.description}</p>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-gray-600 mb-4">{step.description}</p>
-                  <ul className="space-y-1">
-                    {step.details.map((detail, detailIndex) => (
-                      <li key={detailIndex} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-600">{detail}</span>
-                      </li>
-                    ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* The Math */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Part 1: The Math (Read This First)</h2>
+          <p className="text-gray-600 mb-6">
+            Most beginners lose money because they ignore Entry Costs. You are not just earning yield; you are fighting fees.
+          </p>
+
+          <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <AlertTriangle className="w-5 h-5 text-red-600" />
+              <h3 className="font-semibold text-red-800">Scenario Example</h3>
+            </div>
+            <p className="text-gray-700 mb-4">
+              <strong>You have $10,000 USDT to deploy on Solana (SOL)</strong><br />
+              Funding Rate: 0.04% (per 8 hours)<br />
+              Exchange: Bybit
+            </p>
+          </div>
+
+          <div className="overflow-x-auto mb-6">
+            <table className="w-full bg-white border border-gray-200 rounded-lg">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stage</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost/Profit</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance Impact</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {tradeExample.map((trade, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-sm font-medium text-gray-900">{trade.stage}</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">{trade.action}</td>
+                    <td className="px-4 py-3 text-sm">{trade.cost}</td>
+                    <td className={`px-4 py-3 text-sm font-medium ${
+                      trade.impact.includes('+') ? 'text-green-600' : 'text-red-600'
+                    }`}>
+                      {trade.impact}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+            <h3 className="font-semibold text-green-800 mb-3">The Verdict:</h3>
+            <div className="space-y-2 text-green-700">
+              <p>• <strong>Days to Break Even:</strong> 2.5 Days</p>
+              <p>• <strong>Profit after 30 Days:</strong> $329.00 (Net)</p>
+              <p>• <strong>APY:</strong> ~39.5% Risk-Free</p>
+            </div>
+            <div className="mt-4 pt-4 border-t border-green-200">
+              <p className="text-sm text-green-700">
+                <strong>🚀 Curensi Pro Advantage:</strong> Don't do this math manually.
+                Our "Net Profit Calculator" instantly factors in Taker Fees and Bid/Ask Spread to tell you exactly how many days you must hold to break even.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 2: Detailed Instructions */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">Part 2: Step-by-Step Execution</h2>
+
+          <div className="space-y-8">
+            {/* Step 1 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded-full">Step 1</span>
+                Funding & Transfer
+              </h3>
+              <p className="text-gray-600 mb-4">Deposit USDT (Tether) into your chosen exchange.</p>
+              <div className="grid md:grid-cols-2 gap-6 text-sm">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Bybit Users:</h4>
+                  <p className="text-gray-600">Transfer funds to "Unified Trading Account"</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Binance Users:</h4>
+                  <p className="text-gray-600">Transfer 50% to "Fiat & Spot" and 50% to "USDⓈ-M Futures"</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded-full">Step 2</span>
+                The "Sync" Entry
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Speed is critical. If you buy Spot and wait 1 minute to Short, the price might move 1%, leaving you unhedged.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Short (Futures Tab):</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Margin Mode: Select "Isolated" or "Cross"</li>
+                    <li>• Leverage: Set to 1x (Do not skip this!)</li>
+                    <li>• Order Type: Market (for speed)</li>
+                    <li>• Size: 50% of your total capital</li>
                   </ul>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Positive Rate Example */}
-        <div className="mb-16">
-          <div className="bg-green-50 border border-green-200 rounded-xl p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <TrendingUp className="w-6 h-6 text-green-600" />
-              <h2 className="text-2xl font-bold text-gray-900">Positive Funding Rate Example</h2>
-            </div>
-            <p className="text-gray-700 mb-6">
-              When funding rates are positive (e.g., 0.1%), you <strong>buy spot and short futures</strong>. Long positions pay short positions every 8 hours.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Market Moves UP (+10%)</h3>
-                <div className="bg-white rounded-lg p-4 border border-green-200">
-                  <div className="space-y-2">
-                    {positiveRateExample[1] && Object.entries(positiveRateExample[1]).map(([key, value]) => (
-                      <div key={key} className="flex justify-between">
-                        <span className="text-sm text-gray-600 capitalize">{key.replace(/PnL/g, ' P&L')}:</span>
-                        <span className={`text-sm font-medium ${
-                          value.includes('+') ? 'text-green-600' : value.includes('-') ? 'text-red-600' : 'text-gray-900'
-                        }`}>
-                          {value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Long (Spot Tab):</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Order Type: Market</li>
+                    <li>• Size: The remaining 50% of your capital</li>
+                  </ul>
                 </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Market Moves DOWN (-10%)</h3>
-                <div className="bg-white rounded-lg p-4 border border-green-200">
-                  <div className="space-y-2">
-                    {positiveRateExample[2] && Object.entries(positiveRateExample[2]).map(([key, value]) => (
-                      <div key={key} className="flex justify-between">
-                        <span className="text-sm text-gray-600 capitalize">{key.replace(/PnL/g, ' P&L')}:</span>
-                        <span className={`text-sm font-medium ${
-                          value.includes('+') ? 'text-green-600' : value.includes('-') ? 'text-red-600' : 'text-gray-900'
-                        }`}>
-                          {value}
-                        </span>
-                      </div>
-                    ))}
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+                <p className="text-sm text-yellow-800">
+                  <strong>Execute:</strong> Click "Buy Spot" then immediately "Sell Short"
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <span className="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded-full">Step 3</span>
+                Monitoring & Maintenance
+              </h3>
+              <p className="text-gray-600 mb-4">
+                You are now live. You do not care if SOL goes to $500 or $5. You only care about the Funding Rate.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 bg-green-50 rounded-lg p-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div>
+                    <span className="font-medium text-green-800">Green Rate:</span>
+                    <p className="text-sm text-green-600">You get paid. Do nothing.</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-red-50 rounded-lg p-3">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div>
+                    <span className="font-medium text-red-800">Red Rate (Negative):</span>
+                    <p className="text-sm text-red-600">You PAY the fee. If the rate stays negative for &gt;24 hours, close the trade.</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-green-600 text-white rounded-lg p-4 mt-6 text-center">
-              <p className="font-bold">Net Result: $30 profit regardless of price direction</p>
-            </div>
           </div>
         </div>
 
-        {/* Negative Rate Example */}
-        <div className="mb-16">
-          <div className="bg-red-50 border border-red-200 rounded-xl p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <TrendingDown className="w-6 h-6 text-red-600" />
-              <h2 className="text-2xl font-bold text-gray-900">Negative Funding Rate Example</h2>
-            </div>
-            <p className="text-gray-700 mb-6">
-              When funding rates are negative (e.g., -0.1%), you <strong>short spot and long futures</strong>. Short positions pay long positions every 8 hours.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Market Moves UP (+10%)</h3>
-                <div className="bg-white rounded-lg p-4 border border-red-200">
-                  <div className="space-y-2">
-                    {negativeRateExample[1] && Object.entries(negativeRateExample[1]).map(([key, value]) => (
-                      <div key={key} className="flex justify-between">
-                        <span className="text-sm text-gray-600 capitalize">{key.replace(/PnL/g, ' P&L')}:</span>
-                        <span className={`text-sm font-medium ${
-                          value.includes('+') ? 'text-green-600' : value.includes('-') ? 'text-red-600' : 'text-gray-900'
-                        }`}>
-                          {value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Market Moves DOWN (-10%)</h3>
-                <div className="bg-white rounded-lg p-4 border border-red-200">
-                  <div className="space-y-2">
-                    {negativeRateExample[2] && Object.entries(negativeRateExample[2]).map(([key, value]) => (
-                      <div key={key} className="flex justify-between">
-                        <span className="text-sm text-gray-600 capitalize">{key.replace(/PnL/g, ' P&L')}:</span>
-                        <span className={`text-sm font-medium ${
-                          value.includes('+') ? 'text-green-600' : value.includes('-') ? 'text-red-600' : 'text-gray-900'
-                        }`}>
-                          {value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-red-600 text-white rounded-lg p-4 mt-6 text-center">
-              <p className="font-bold">Net Result: $30 profit regardless of price direction</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Best Practices */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Best Practices for Success</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {bestPractices.map((practice, index) => {
-              const Icon = practice.icon;
-              return (
-                <div key={index} className={`${practice.bgColor} rounded-xl p-6 border border-opacity-20`}>
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className={`w-10 h-10 ${practice.bgColor} rounded-lg flex items-center justify-center`}>
-                      <Icon className={`w-5 h-5 ${practice.color}`} />
-                    </div>
-                    <h3 className="font-semibold text-gray-900">{practice.title}</h3>
-                  </div>
-                  <p className="text-gray-700 text-sm">{practice.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Common Mistakes */}
+        {/* Important Notes */}
         <div className="mb-16">
           <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <AlertTriangle className="w-6 h-6 text-yellow-600" />
-              <h2 className="text-2xl font-bold text-gray-900">Common Mistakes to Avoid</h2>
-            </div>
-            <div className="space-y-6">
-              {commonMistakes.map((mistake, index) => (
-                <div key={index} className="bg-white rounded-lg p-6 border border-yellow-200">
-                  <h3 className="font-semibold text-gray-900 mb-2">{mistake.title}</h3>
-                  <p className="text-gray-600 text-sm mb-2">{mistake.description}</p>
-                  <div className="bg-yellow-50 rounded p-3">
-                    <div className="flex items-start gap-2">
-                      <Info className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-sm text-yellow-800 mb-1">
-                          <strong>Example:</strong> {mistake.example}
-                        </p>
-                        <p className="text-sm text-yellow-800">
-                          <strong>Solution:</strong> {mistake.solution}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <h3 className="text-xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
+              <AlertTriangle className="w-6 h-6" />
+              The "Rebalance" Trap
+            </h3>
+            <p className="text-gray-700 mb-4">
+              If SOL price doubles, your Spot position doubles in value, but your Short position is losing money and approaching liquidation.
+            </p>
+            <div className="bg-white rounded-lg p-4 border border-yellow-200">
+              <p className="text-gray-700">
+                <strong>Action:</strong> You must move USDT from your Spot wallet to your Futures wallet to lower your leverage back to 1x.
+              </p>
+              <p className="text-gray-600 text-sm mt-2">
+                <strong>Auto-Alerts:</strong> Curensi sends you an SMS when your leverage hits 1.5x, so you never get liquidated while sleeping.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Risk Management Levels */}
+        {/* Optimization Section */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Risk Management Guidelines</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {riskManagement.map((level, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                <h3 className={`font-bold text-lg mb-4 ${
-                  level.level === 'Conservative' ? 'text-green-600' :
-                  level.level === 'Moderate' ? 'text-yellow-600' : 'text-red-600'
-                }`}>
-                  {level.level}
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Max Position:</span>
-                    <span className="text-sm font-medium">{level.maxPositionSize}</span>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">Optimization: Turning 30% into 50%</h2>
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-8">
+            <p className="text-purple-800 mb-6">
+              <strong>Amateurs take the yield and spend it. Professionals compound it.</strong>
+            </p>
+            <div className="space-y-6">
+              {optimizationTips.map((tip, index) => {
+                const Icon = tip.icon;
+                return (
+                  <div key={index} className="bg-white rounded-lg p-6 border border-purple-200">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`w-10 h-10 ${tip.color === 'purple' ? 'bg-purple-100' : tip.color === 'green' ? 'bg-green-100' : 'bg-blue-100'} rounded-lg flex items-center justify-center`}>
+                        <Icon className={`w-5 h-5 ${tip.color === 'purple' ? 'text-purple-600' : tip.color === 'green' ? 'text-green-600' : 'text-blue-600'}`} />
+                      </div>
+                      <h3 className="font-semibold text-gray-900">{tip.title}</h3>
+                    </div>
+                    <p className="text-gray-600 text-sm">{tip.description}</p>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Max Leverage:</span>
-                    <span className="text-sm font-medium">{level.maxLeverage}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Target Rate:</span>
-                    <span className="text-sm font-medium">{level.targetRate}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Max Hold Time:</span>
-                    <span className="text-sm font-medium">{level.maxHoldTime}</span>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="text-xs text-gray-500">{level.description}</p>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Next Steps */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-white text-center">
-          <h2 className="text-2xl font-bold mb-4">Ready to Try Your First Trade?</h2>
-          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-            Start with a conservative approach using small position sizes. Practice the mechanics before committing significant capital.
+        {/* CTA Section */}
+        <div className="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl p-8 text-white text-center">
+          <Calculator className="w-12 h-12 text-white/80 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-4">Ready to Execute Your First Trade?</h2>
+          <p className="text-green-100 mb-8 max-w-2xl mx-auto">
+            Upgrade to Pro for real-time data, advanced calculators, and instant notifications when high-APR opportunities appear.
           </p>
-          <div className="flex items-center justify-center gap-4">
-            <a
-              href="/dashboard"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
-            >
-              View Live Opportunities
-              <BarChart3 className="w-5 h-5" />
-            </a>
-            <a
-              href="/docs/risk-management"
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center gap-2"
-            >
-              Learn Risk Management
-              <Shield className="w-5 h-5" />
-            </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/pricing">
+              <div className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
+                Upgrade to Pro Plan
+                <Calculator className="w-5 h-5" />
+              </div>
+            </Link>
+            <Link href="/dashboard">
+              <div className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+                View Current Rates
+                <TrendingUp className="w-5 h-5" />
+              </div>
+            </Link>
           </div>
+          <p className="text-green-200 text-sm mt-6">
+            ✅ Real-time data • ✅ Advanced calculators • ✅ Email notifications • ✅ No free trial
+          </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import DocsHeader from '@/components/docs/DocsHeader';
 import {
   TrendingUp,
   Clock,
@@ -161,21 +163,17 @@ const risks = [
 
 export default function FundingRatePage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-6 h-6" />
-            </div>
-            <h1 className="text-3xl font-bold">Understanding Funding Rates</h1>
-          </div>
-          <p className="text-xl text-blue-100">
-            Master the mechanics of funding rates and learn how to set up exchange accounts for arbitrage trading.
-          </p>
-        </div>
-      </div>
+    <>
+      <DocsHeader
+        title="Understanding Funding Rates: The Engine of Arbitrage"
+        subtitle="Master the mechanics of funding rates, APR calculations, and exchange requirements. Your complete guide to setting up profitable arbitrage strategies."
+        icon={BarChart3}
+        gradient="bg-gradient-to-r from-blue-600 to-purple-600"
+        showCTA={true}
+        ctaText="View Current Rates"
+        ctaLink="/dashboard"
+        ctaVariant="secondary"
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Funding Rate Basics */}
@@ -388,6 +386,6 @@ export default function FundingRatePage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

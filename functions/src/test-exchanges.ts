@@ -1,11 +1,12 @@
+import { https } from 'firebase-functions/v2';
 import * as functions from 'firebase-functions';
 import * as ccxt from 'ccxt';
-import * as cors from 'cors';
+import cors from 'cors';
 
 const corsHandler = cors({ origin: true });
 
 // Simple test function to check CCXT connectivity
-exports.testCCXT = functions.https.onRequest(async (req, res) => {
+export const testCCXT = https.onRequest(async (req, res) => {
   return corsHandler(req, res, async () => {
     try {
       console.log('Testing CCXT connectivity...');

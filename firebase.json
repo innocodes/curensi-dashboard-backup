@@ -6,6 +6,21 @@
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
   },
+  "emulators": {
+    "functions": {
+      "port": 5002
+    },
+    "hosting": {
+      "port": 5003
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  },
   "hosting": {
     "public": "out",
     "ignore": [

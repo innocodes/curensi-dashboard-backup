@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import DocsHeader from '@/components/docs/DocsHeader';
 import {
   BookOpen,
   TrendingUp,
@@ -8,7 +9,6 @@ import {
   Shield,
   Zap,
   BarChart3,
-  Code,
   Users,
   ArrowRight,
   FileText,
@@ -94,61 +94,20 @@ const docSections = [
   },
   ];
 
-const quickStart = [
-  {
-    title: "Create Your Account",
-    description: "Sign up for a free Curensi account to get started",
-    href: "/auth/signup",
-    action: "Sign Up"
-  },
-  {
-    title: "Read the Basics",
-    description: "Understand how funding rate arbitrage works",
-    href: "/docs/funding-rate-arbitrage",
-    action: "Learn More"
-  },
-  {
-    title: "Choose a Plan",
-    description: "Select the right subscription for your trading needs",
-    href: "/pricing",
-    action: "View Plans"
-  }
-];
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <h1 className="text-4xl font-bold">Documentation</h1>
-          </div>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl">
-            Complete guide to funding rate arbitrage and using Curensi's intelligent market-neutral trading platform.
-          </p>
-
-          {/* Quick Start */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {quickStart.map((item, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 className="font-semibold mb-2">{item.title}</h3>
-                <p className="text-blue-100 text-sm mb-4">{item.description}</p>
-                <Link
-                  href={item.href}
-                  className="inline-flex items-center gap-2 text-white hover:text-blue-200 font-medium text-sm"
-                >
-                  {item.action}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+    <>
+      <DocsHeader
+        title="The Curensi Documentation Hub"
+        subtitle="Master funding rate arbitrage with our comprehensive guides. From beginner basics to advanced strategies, everything you need to generate market-neutral returns."
+        icon={BookOpen}
+        gradient="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+        showCTA={true}
+        ctaText="Choose Your Plan"
+        ctaLink="/pricing"
+        ctaVariant="secondary"
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Documentation Sections */}
@@ -259,6 +218,6 @@ export default function DocsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

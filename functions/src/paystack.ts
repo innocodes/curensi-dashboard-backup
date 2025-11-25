@@ -1,9 +1,10 @@
+import { https } from 'firebase-functions/v2';
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import axios from 'axios';
 
 const db = admin.firestore();
-const PAYSTACK_SECRET_KEY = functions.config().paystack?.secret_key || process.env.PAYSTACK_SECRET_KEY;
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 const PAYSTACK_BASE_URL = 'https://api.paystack.co';
 
 interface PaystackWebhookEvent {
@@ -11,7 +12,7 @@ interface PaystackWebhookEvent {
   data: any;
 }
 
-export const handlePaystackWebhook = functions.https.onRequest(async (req, res) => {
+export const handlePaystackWebhook = https.onRequest(async (req, res) => {
   // Only allow POST requests
   if (req.method !== 'POST') {
     res.status(405).send('Method not allowed');
@@ -20,7 +21,7 @@ export const handlePaystackWebhook = functions.https.onRequest(async (req, res) 
 
   // Verify webhook signature
   const hash = req.headers['x-paystack-signature'] as string;
-  const secret = functions.config().paystack?.webhook_secret || process.env.PAYSTACK_WEBHOOK_SECRET;
+  const secret = process.env.PAYSTACK_WEBHOOK_SECRET;
 
   if (!hash || !secret) {
     console.error('Missing webhook signature or secret');
@@ -273,8 +274,8 @@ async function handleInvoicePaymentSucceeded(data: any) {
 }
 
 // Initialize Paystack plans
-export const initializePaystackPlans = functions.https.onCall(async (data, context) => {
-  if (!context.auth?.token.admin) {
+export const initializePaystackPlans = https.onCall(async (request) => {
+  if (!request.auth?.token.admin) {
     throw new functions.https.HttpsError('permission-denied', 'Admin access required');
   }
 

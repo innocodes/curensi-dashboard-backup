@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DocsHeader from "@/components/docs/DocsHeader";
 import {
   BookOpen,
   ArrowRight,
@@ -10,11 +11,9 @@ import {
   Calculator,
   Lightbulb,
   AlertTriangle,
-  CheckCircle,
   Users,
   ArrowUpRight,
   ArrowDownRight,
-  RefreshCw,
 } from "lucide-react";
 
 const steps = [
@@ -182,37 +181,37 @@ const faqs = [
 
 export default function FundingRateArbitrageExplainer() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Hero Section */}
+    <>
+      <DocsHeader
+        title="What is Funding Rate Arbitrage?"
+        subtitle="In simple terms: You get paid to balance the market. Learn how professionals generate 15-50% APY with market-neutral strategies that profit regardless of price direction."
+        icon={Calculator}
+        gradient="bg-gradient-to-r from-blue-600 to-purple-600"
+        showCTA={true}
+        ctaText="View Live Rates"
+        ctaLink="/dashboard"
+        ctaVariant="primary"
+      />
 
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <Calculator className="w-6 h-6" />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Simple Analogy */}
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-12 mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            The Simple Answer
+          </h2>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-xl p-8 shadow-sm">
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                <strong>
+                  Funding rate arbitrage is like being the bank in crypto.
+                </strong>
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                You lend money to traders and collect interest payments every 8
+                hours, while protecting yourself from price movements by holding
+                balanced positions.
+              </p>
             </div>
-            <h1 className="text-3xl font-bold">
-              What is Funding Rate Arbitrage?
-            </h1>
-          </div>
-          <p className="text-xl text-blue-100 mb-8">
-            A beginner-friendly guide to earning consistent returns from crypto
-            markets, regardless of whether prices go up or down
-          </p>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-            <div className="flex items-center justify-center gap-2 text-lg font-medium mb-4">
-              <Lightbulb className="w-5 h-5" />
-              The Simple Answer
-            </div>
-            <p className="text-lg leading-relaxed">
-              <strong>
-                Funding rate arbitrage is like being the bank in crypto.
-              </strong>
-              You lend money to traders and collect interest payments every 8
-              hours, while protecting yourself from price movements by holding
-              balanced positions.
-            </p>
           </div>
         </div>
       </div>
@@ -607,6 +606,6 @@ export default function FundingRateArbitrageExplainer() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

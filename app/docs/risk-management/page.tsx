@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+import DocsHeader from "@/components/docs/DocsHeader";
 import {
   Shield,
   AlertTriangle,
@@ -110,21 +112,17 @@ const stopLossStrategies = [
 
 export default function RiskManagementPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-              <Shield className="w-6 h-6" />
-            </div>
-            <h1 className="text-3xl font-bold">Risk Management</h1>
-          </div>
-          <p className="text-xl text-red-100">
-            Essential risk management practices for safe and profitable funding rate arbitrage trading.
-          </p>
-        </div>
-      </div>
+    <>
+      <DocsHeader
+        title="Risk Management: Protecting Your Capital"
+        subtitle="Learn the 4 deadly risks of arbitrage trading and professional mitigation strategies to preserve your wealth while generating market-neutral returns"
+        icon={Shield}
+        gradient="bg-gradient-to-r from-red-600 to-orange-600"
+        showCTA={true}
+        ctaText="Upgrade to Whale Plan"
+        ctaLink="/pricing"
+        ctaVariant="primary"
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Core Risk Types */}
@@ -315,7 +313,34 @@ export default function RiskManagementPage() {
             </div>
           </div>
         </div>
+
+        {/* CTA Section */}
+        <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-xl p-8 text-white text-center">
+          <Shield className="w-12 h-12 text-white/80 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-4">Ready to Trade Safely?</h2>
+          <p className="text-red-100 mb-8 max-w-2xl mx-auto">
+            Upgrade to Whale tier for advanced risk monitoring features including liquidation alerts,
+            portfolio rebalancing notifications, and priority access during market volatility.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/pricing">
+              <div className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
+                Upgrade to Whale Plan
+                <Shield className="w-5 h-5" />
+              </div>
+            </Link>
+            <Link href="/docs/basic-strategy">
+              <div className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+                View Strategies
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+            </Link>
+          </div>
+          <p className="text-red-200 text-sm mt-6">
+            ✅ Liquidation alerts • ✅ Portfolio monitoring • ✅ Advanced analytics
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

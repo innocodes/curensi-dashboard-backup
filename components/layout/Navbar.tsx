@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import {
   TrendingUp,
+  BookOpen,
   Menu,
   X,
   User,
@@ -61,6 +62,7 @@ export default function Navbar() {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: TrendingUp },
+    { name: 'Docs', href: '/docs', icon: BookOpen },
   ];
 
   const userNavigation = [
@@ -173,12 +175,12 @@ export default function Navbar() {
               </>
             ) : (
               <div className="flex items-center gap-3">
-                <Link href="/auth">
+                <Link href="/auth/login">
                   <Button variant="ghost">
                     Sign In
                   </Button>
                 </Link>
-                <Link href="/auth">
+                <Link href="/auth/signup">
                   <Button variant="primary">
                     Get Started
                   </Button>
@@ -270,12 +272,12 @@ export default function Navbar() {
 
           {!user && (
             <div className="pt-4 pb-3 border-t border-gray-200 px-4 space-y-3">
-              <Link href="/auth" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full">
                   Sign In
                 </Button>
               </Link>
-              <Link href="/auth" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="primary" className="w-full">
                   Get Started
                 </Button>

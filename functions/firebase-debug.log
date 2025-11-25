@@ -1,0 +1,235 @@
+[debug] [2025-11-24T20:52:18.152Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T20:52:18.155Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase deploy --only functions --debug
+[debug] [2025-11-24T20:52:18.155Z] CLI Version:   14.19.1
+[debug] [2025-11-24T20:52:18.155Z] Platform:      darwin
+[debug] [2025-11-24T20:52:18.155Z] Node Version:  v24.10.0
+[debug] [2025-11-24T20:52:18.155Z] Time:          Mon Nov 24 2025 21:52:18 GMT+0100 (West Africa Standard Time)
+[debug] [2025-11-24T20:52:18.155Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T20:52:18.258Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T20:52:18.258Z] > authorizing via signed-in user (thecurensi@gmail.com)
+[debug] [2025-11-24T20:52:18.258Z] [iam] checking project curensi-arbitrage for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-11-24T20:52:18.259Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:18.259Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:18.259Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions [none]
+[debug] [2025-11-24T20:52:18.259Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions x-goog-quota-user=projects/curensi-arbitrage
+[debug] [2025-11-24T20:52:18.259Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-11-24T20:52:19.285Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions 200
+[debug] [2025-11-24T20:52:19.286Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-11-24T20:52:19.286Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:19.286Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:19.286Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T20:52:19.286Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T20:52:20.711Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T20:52:20.711Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'curensi-arbitrage'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2025-11-24T20:52:28.256Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:28.256Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:28.256Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage [none]
+[debug] [2025-11-24T20:52:29.244Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage 200
+[debug] [2025-11-24T20:52:29.244Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage {"projectNumber":"613155271544","projectId":"curensi-arbitrage","lifecycleState":"ACTIVE","name":"curensi-arbitrage","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-11-17T12:38:50.897272Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-11-24T20:52:29.245Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:29.245Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:29.245Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig [none]
+[debug] [2025-11-24T20:52:30.815Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig 200
+[debug] [2025-11-24T20:52:30.815Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig {"projectId":"curensi-arbitrage","storageBucket":"curensi-arbitrage.firebasestorage.app"}
+[debug] [2025-11-24T20:52:30.815Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:30.815Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:52:30.815Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs [none]
+[debug] [2025-11-24T20:52:36.738Z] *** [apiv2] error from fetch(https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs, {"headers":{},"method":"GET"}): FetchError: request to https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs failed, reason: getaddrinfo ENOTFOUND runtimeconfig.googleapis.com
+[debug] Failed to make request to https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs
+[debug] [2025-11-24T20:52:36.739Z] Got unexpected error from Runtime Config; it has no status code: Failed to make request to https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs {"name":"FirebaseError","children":[],"exit":1,"message":"Failed to make request to https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs","original":{"message":"request to https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs failed, reason: getaddrinfo ENOTFOUND runtimeconfig.googleapis.com","type":"system","errno":"ENOTFOUND","code":"ENOTFOUND"},"status":500,"level":"debug"}
+[error] 
+[error] Error: Cloud Runtime Config is currently experiencing issues, which is preventing your functions from being deployed. Please wait a few minutes and then try to deploy your functions again.
+Run `firebase deploy --except functions` if you want to continue deploying the rest of your project.
+[debug] [2025-11-24T20:54:01.109Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T20:54:01.111Z] Command:       /opt/homebrew/Cellar/node/24.10.0/bin/node /opt/homebrew/bin/firebase deploy --only functions
+[debug] [2025-11-24T20:54:01.111Z] CLI Version:   14.19.1
+[debug] [2025-11-24T20:54:01.111Z] Platform:      darwin
+[debug] [2025-11-24T20:54:01.111Z] Node Version:  v24.10.0
+[debug] [2025-11-24T20:54:01.111Z] Time:          Mon Nov 24 2025 21:54:01 GMT+0100 (West Africa Standard Time)
+[debug] [2025-11-24T20:54:01.111Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T20:54:01.188Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T20:54:01.188Z] > authorizing via signed-in user (thecurensi@gmail.com)
+[debug] [2025-11-24T20:54:01.188Z] [iam] checking project curensi-arbitrage for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-11-24T20:54:01.189Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:01.189Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:01.189Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions [none]
+[debug] [2025-11-24T20:54:01.189Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions x-goog-quota-user=projects/curensi-arbitrage
+[debug] [2025-11-24T20:54:01.189Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-11-24T20:54:02.201Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions 200
+[debug] [2025-11-24T20:54:02.201Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-11-24T20:54:02.201Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:02.201Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:02.201Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T20:54:02.202Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T20:54:02.695Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T20:54:02.695Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/curensi-arbitrage/serviceAccounts/curensi-arbitrage@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'curensi-arbitrage'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2025-11-24T20:54:06.281Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:06.281Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:06.281Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage [none]
+[debug] [2025-11-24T20:54:06.543Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage 200
+[debug] [2025-11-24T20:54:06.543Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage {"projectNumber":"613155271544","projectId":"curensi-arbitrage","lifecycleState":"ACTIVE","name":"curensi-arbitrage","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-11-17T12:38:50.897272Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-11-24T20:54:06.544Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:06.544Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:06.544Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig [none]
+[debug] [2025-11-24T20:54:07.127Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig 200
+[debug] [2025-11-24T20:54:07.127Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/curensi-arbitrage/adminSdkConfig {"projectId":"curensi-arbitrage","storageBucket":"curensi-arbitrage.firebasestorage.app"}
+[debug] [2025-11-24T20:54:07.127Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.127Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.127Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs [none]
+[debug] [2025-11-24T20:54:07.881Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs 200
+[debug] [2025-11-24T20:54:07.881Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs {"configs":[{"name":"projects/curensi-arbitrage/configs/resend"},{"name":"projects/curensi-arbitrage/configs/dataimpulse"},{"name":"projects/curensi-arbitrage/configs/proxy"}]}
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.881Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:07.882Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables [none]
+[debug] [2025-11-24T20:54:07.882Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables [none]
+[debug] [2025-11-24T20:54:07.882Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables [none]
+[debug] [2025-11-24T20:54:08.171Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables 200
+[debug] [2025-11-24T20:54:08.171Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables {"variables":[{"name":"projects/curensi-arbitrage/configs/resend/variables/api_key","updateTime":"2025-11-22T20:23:22.058991871Z"},{"name":"projects/curensi-arbitrage/configs/resend/variables/from_email","updateTime":"2025-11-22T20:23:22.188573786Z"}]}
+[debug] [2025-11-24T20:54:08.171Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.171Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.171Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.171Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.171Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/api_key [none]
+[debug] [2025-11-24T20:54:08.171Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/from_email [none]
+[debug] [2025-11-24T20:54:08.367Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables 200
+[debug] [2025-11-24T20:54:08.367Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables {"variables":[{"name":"projects/curensi-arbitrage/configs/proxy/variables/host","updateTime":"2025-11-22T20:15:28.951905170Z"},{"name":"projects/curensi-arbitrage/configs/proxy/variables/password","updateTime":"2025-11-22T20:15:28.154863147Z"},{"name":"projects/curensi-arbitrage/configs/proxy/variables/port","updateTime":"2025-11-22T20:15:29.018005976Z"},{"name":"projects/curensi-arbitrage/configs/proxy/variables/username","updateTime":"2025-11-22T20:15:29.869912785Z"}]}
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.367Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/host [none]
+[debug] [2025-11-24T20:54:08.367Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/password [none]
+[debug] [2025-11-24T20:54:08.368Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/port [none]
+[debug] [2025-11-24T20:54:08.368Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/username [none]
+[debug] [2025-11-24T20:54:08.462Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/api_key 200
+[debug] [2025-11-24T20:54:08.463Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/api_key {"name":"projects/curensi-arbitrage/configs/resend/variables/api_key","updateTime":"2025-11-22T20:23:22.058991871Z","text":"re_buEceLQu_4mBamGXTHC3QUmMNFXtndpRZ"}
+[debug] [2025-11-24T20:54:08.478Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables 200
+[debug] [2025-11-24T20:54:08.478Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables {"variables":[{"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/password","updateTime":"2025-11-22T18:10:06.987401689Z"},{"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/port","updateTime":"2025-11-22T18:08:51.065169965Z"},{"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/username","updateTime":"2025-11-22T18:09:40.840985372Z"},{"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/host","updateTime":"2025-11-22T18:08:30.471919080Z"}]}
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:08.478Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/password [none]
+[debug] [2025-11-24T20:54:08.479Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/port [none]
+[debug] [2025-11-24T20:54:08.479Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/username [none]
+[debug] [2025-11-24T20:54:08.479Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/host [none]
+[debug] [2025-11-24T20:54:08.674Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/from_email 200
+[debug] [2025-11-24T20:54:08.674Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/resend/variables/from_email {"name":"projects/curensi-arbitrage/configs/resend/variables/from_email","updateTime":"2025-11-22T20:23:22.188573786Z","text":"noreply@curensi.com"}
+[debug] [2025-11-24T20:54:08.760Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/port 200
+[debug] [2025-11-24T20:54:08.760Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/port {"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/port","updateTime":"2025-11-22T18:08:51.065169965Z","text":"10000"}
+[debug] [2025-11-24T20:54:08.861Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/username 200
+[debug] [2025-11-24T20:54:08.861Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/username {"name":"projects/curensi-arbitrage/configs/proxy/variables/username","updateTime":"2025-11-22T20:15:29.869912785Z","text":"af4b7955ec999c77fc3a"}
+[debug] [2025-11-24T20:54:08.971Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/host 200
+[debug] [2025-11-24T20:54:08.971Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/host {"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/host","updateTime":"2025-11-22T18:08:30.471919080Z","text":"gw.dataimpulse.com"}
+[debug] [2025-11-24T20:54:09.127Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/host 200
+[debug] [2025-11-24T20:54:09.127Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/host {"name":"projects/curensi-arbitrage/configs/proxy/variables/host","updateTime":"2025-11-22T20:15:28.951905170Z","text":"gw.dataimpulse.com"}
+[debug] [2025-11-24T20:54:09.250Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/password 200
+[debug] [2025-11-24T20:54:09.250Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/password {"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/password","updateTime":"2025-11-22T18:10:06.987401689Z","text":"876cab92fb538006"}
+[debug] [2025-11-24T20:54:09.254Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/port 200
+[debug] [2025-11-24T20:54:09.254Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/port {"name":"projects/curensi-arbitrage/configs/proxy/variables/port","updateTime":"2025-11-22T20:15:29.018005976Z","text":"10000"}
+[debug] [2025-11-24T20:54:09.362Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/password 200
+[debug] [2025-11-24T20:54:09.362Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/proxy/variables/password {"name":"projects/curensi-arbitrage/configs/proxy/variables/password","updateTime":"2025-11-22T20:15:28.154863147Z","text":"876cab92fb538006"}
+[debug] [2025-11-24T20:54:09.475Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/username 200
+[debug] [2025-11-24T20:54:09.475Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/curensi-arbitrage/configs/dataimpulse/variables/username {"name":"projects/curensi-arbitrage/configs/dataimpulse/variables/username","updateTime":"2025-11-22T18:09:40.840985372Z","text":"af4b7955ec999c77fc3a"}
+[debug] [2025-11-24T20:54:09.476Z] Validating nodejs source
+[debug] [2025-11-24T20:54:10.964Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "echo 'Skipping lint for now'",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "ccxt": "^4.1.80",
+    "cors": "^2.8.5",
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.0",
+    "https-proxy-agent": "^7.0.6",
+    "resend": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.55.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^5.3.3"
+  },
+  "private": true
+}
+[debug] [2025-11-24T20:54:10.964Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-11-24T20:54:10.965Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-11-24T20:54:10.969Z] Found firebase-functions binary at '/Users/innocentoyebode/Projects/TheCurensi/Dashboard/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8231
+
+[debug] [2025-11-24T20:54:15.420Z] Got response from /__/functions.yaml {"endpoints":{"scheduledCryptoFetcher":{"availableMemoryMb":1024,"timeoutSeconds":120,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"scheduleTrigger":{"schedule":"every 15 minutes","retryConfig":{}},"entryPoint":"scheduledCryptoFetcher"},"getLatestRates":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getLatestRates"},"getOpportunities":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getOpportunities"},"getHistoricalRates":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getHistoricalRates"},"getZScoreOpportunities":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getZScoreOpportunities"},"getUserProfile":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getUserProfile"},"updateUserPreferences":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"updateUserPreferences"},"initializePayment":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"initializePayment"},"verifyPayment":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"verifyPayment"},"getSubscription":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getSubscription"},"testNewArchitecture":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"testNewArchitecture"},"testCCXT":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"testCCXT"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-11-24T20:54:19.443Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T20:54:19.443Z] > authorizing via signed-in user (thecurensi@gmail.com)
+[debug] [2025-11-24T20:54:19.443Z] [iam] checking project curensi-arbitrage for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-11-24T20:54:19.443Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:19.443Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:19.443Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions [none]
+[debug] [2025-11-24T20:54:19.443Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions x-goog-quota-user=projects/curensi-arbitrage
+[debug] [2025-11-24T20:54:19.443Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-11-24T20:54:20.453Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions 200
+[debug] [2025-11-24T20:54:20.453Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/curensi-arbitrage:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-11-24T20:54:20.454Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:20.454Z] Checked if tokens are valid: true, expires at: 1764020319000
+[debug] [2025-11-24T20:54:20.454Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/curensi-arbitrage/instances pageSize=100&pageToken=
+[debug] [2025-11-24T20:54:26.433Z] *** [apiv2] error from fetch(https://firebaseextensions.googleapis.com/v1beta/projects/curensi-arbitrage/instances?pageSize=100&pageToken=, {"headers":{},"method":"GET"}): FetchError: request to https://firebaseextensions.googleapis.com/v1beta/projects/curensi-arbitrage/instances?pageSize=100&pageToken= failed, reason: getaddrinfo ENOTFOUND firebaseextensions.googleapis.com
+[debug] [2025-11-24T20:54:31.441Z] Error: Timed out.
+    at Timeout._onTimeout (/opt/homebrew/lib/node_modules/firebase-tools/lib/utils.js:275:49)
+    at listOnTimeout (node:internal/timers:608:17)
+    at process.processTimers (node:internal/timers:543:7)
+[error] 
+[error] Error: An unexpected error has occurred.
