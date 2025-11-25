@@ -110,7 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return newUserProfile;
         }
       } catch (firestoreError) {
-        console.warn('⚠️ Firestore failed, using basic profile:', firestoreError.message);
+        console.warn('⚠️ Firestore failed, using basic profile:', (firestoreError as Error).message);
         setUserProfile(basicProfile);
         return basicProfile;
       }

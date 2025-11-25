@@ -419,7 +419,7 @@ export default function OptimizedFundingRateTable({
                           exit={{ opacity: 0, height: 0 }}
                           className="bg-gray-50"
                         >
-                          <td colSpan={userTier === 'free' ? 6 : 9} className="px-6 py-4">
+                          <td colSpan={userTier === 'pro' || userTier === 'premium' ? 9 : 6} className="px-6 py-4">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                               <div>
                                 <h4 className="font-semibold text-gray-700 mb-2">Market Details</h4>
@@ -436,7 +436,7 @@ export default function OptimizedFundingRateTable({
                                   </p>
                                   <p className="text-gray-600">
                                     Next Funding: <span className="font-medium text-gray-900">
-                                      {rate.nextFundingTime || 'N/A'}
+                                      {rate.nextFundingTime ? formatTimestamp(rate.nextFundingTime) : 'N/A'}
                                     </span>
                                   </p>
                                 </div>

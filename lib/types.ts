@@ -6,6 +6,11 @@ export interface FundingRate {
   timestamp: Date;
   markPrice?: number;
   nextFundingTime?: Date;
+  openInterest?: number;
+  basisSpread?: number;
+  spotPrice?: number;
+  liquidityScore?: 'high' | 'medium' | 'low';
+  volume24h?: number;
 }
 
 export interface HistoricalFundingRate extends FundingRate {
